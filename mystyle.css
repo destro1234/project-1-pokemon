@@ -4,7 +4,7 @@ h1 {
     text-align: center;
 }
 
-#pokemon-container {
+.pokemon-container {
     display: inline-block;
     text-align: center;
     padding: 100px;
