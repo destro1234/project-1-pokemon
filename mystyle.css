@@ -4,6 +4,17 @@ h1 {
     text-align: center;
 }
 
+#pokemon-team {
+    margin: auto;
+    width: 400px;
+    text-align: center
+
+}
+
+#pokemon{
+    display: inline-block;
+}
+
 .pokemon-container {
     display: inline-block;
     text-align: center;
@@ -12,5 +23,6 @@ h1 {
 }
 
 #container-wrapper {
-    text-align: center
+    text-align: center;
+    float: center
 }

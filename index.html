@@ -3,29 +3,70 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <link rel="stylesheet" href="mystyle.css">
-
-    <title>Make Your Pokemon Team</title>
 </head>
 <body>
-    <h1>Welcome to making your Pokemon Team!</h1>
+    <h1>Welcome to Making Your Pokemon Team!</h1>
+
     <br>
     <br>
 
     <div id="container-wrapper">
-        <span>
-        <div id="pokemon-a-container" class="pokemon-container">
-            <h4>Pokemon A</h4>
-            <img src="" alt="pokemon-a-img" id="pokemon-a-img">
-        </div>
-        <div id="pokemon-b-container" class="pokemon-container">
-            <h4>Pokemon B</h4>
-        </div>
-    </span>
+    <div id="pokemon-a" class="pokemon-container">
+        <h4>Pokemon A</h4>
+        <img id="pokemon-a-img" src="" alt="image goes here">
+        <label for="pokemon-a">Choose your pokemon:</label>
+        <select name="pokemon-a" id="pokemon-a-dropdown"></select>
+        
     </div>
-    
 
-<script type="text/javascript" src="index.js"></script>
+    <div id="pokemon-b" class="pokemon-container">
+        <h4>Pokemon B</h4>
+        <img id="pokemon-b-img" src="" alt="image goes here">
+    </div>
+</div>
+
+    <br>
+    <br>
+
+    <div id="pokemon-team">
+        <h4>Pokemon Team:</h4>
+
+        <div id="pokemon">
+            <h4>First Pokemon:</h4>
+            <img src="" alt="Image Goes Here">
+        </div>
+
+       
+        <div id="pokemon">
+            <h4>Second Pokemon:</h4>
+            <img src="" alt="Image Goes Here">
+        </div>
+
+        <div id="pokemon">
+            <h4>Third Pokemon:</h4>
+            <img src="" alt="Image Goes Here">
+        </div>
+
+        <div id="pokemon">
+            <h4>Fourth Pokemon:</h4>
+            <img src="" alt="Image Goes Here">
+        </div>
+
+        <div id="pokemon">
+            <h4>Fifth Pokemon:</h4>
+            <img src="" alt="Image Goes Here">
+        </div>
+
+        <div id="pokemon">
+            <h4>Sixth Pokemon:</h4>
+            <img src="" alt="Image Goes Here">
+        </div>
+        
+
+    </div>
+    <script defer type="text/javascript" src="index.js"></script>
 
     
 </body>
