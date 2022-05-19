@@ -3,89 +3,102 @@ document.addEventListener('DOMContentLoaded', function (params) {
     
 
 
-let listA = document.querySelector("#pokemon-a-dropdown")
-let listB = document.querySelector("#pokemon-b-dropdown")
-let pokemonAImage = document.querySelector("#pokemon-a-img")
+let dropDownA = document.querySelector("#pokemon-a-dropdown")
+let dropDownB = document.querySelector("#pokemon-b-dropdown")
+
 let pokemonBImage = document.querySelector("#pokemon-b-img")
-let pokemonObjects = []
-pokemonAImage.src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png"
-pokemonBImage.src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png"
+let hpa = document.querySelector('#HP_a')
+const pokemonObjects = []
+const dropDown = document.createElement('select')
 
 
 
-    fetch('https://pokeapi.co/api/v2/pokemon?offset=0&limit=1126')
+
+    fetch('https://pokeapi.co/api/v2/pokemon?offset=0&limit=150')
     .then(res => res.json())
     .then(function (data) {
-        renderAllPokemon(data)
+        getAllPokemon(data)
     })
 
-    function renderAllPokemon(data) {
+    function getAllPokemon(data) {
         let pokemons = data['results']
         for (const pokemon of pokemons) {
             fetch(pokemon.url)
             .then(res => res.json())
             .then(function (data) {
-                // console.log(data)
+                createOptions(data)
                 pokemonObjects.push(data)
-                // console.log(pokemonObjects)
-                createPokemonLists(pokemon)
             })
         }
 
         
     }
 
-    console.log(pokemonObjects)
-   
 
-    function createPokemonLists(pokemon) {
+    
 
-        let optionA = document.createElement('option')
-        let optionB = document.createElement('option')
+    
+    createPokemonDropdown()
+
+    function createPokemonDropdown() {
+        const container = document.querySelector("#container-wrapper");
+        const div = document.createElement('div');
+        div.innerHTML = 
+        `<h4>Choose a Pokemon:</h4>
+        <img id= "pokemon_img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="image goes here">
+        <br>
+        <label for="pokemon-a">Choose your pokemon:</label>
+        <br>
+        <br>`
+        div.append(dropDown)
         
-        fetch(pokemon.url).then(res => res.json()).then(function (data) {
-            optionA.innerHTML = data.name
-            optionB.innerHTML = data.name
-            listA.append(optionA)
-            listB.append(optionB)
+        
             
-        } )
+        
+        
+        container.append(div)
+    
+
     }
 
-    function updateList(data) {
-        listA.addEventListener('change', function (event) {
-            pokemonAImage.src = 
-            console.log(event)
-            
-        })
+    function createOptions(data) {
+        const option = document.createElement('option')
+        option.innerHTML = data.name
+        dropDown.append(option)
+        console.log(dropDown)
     }
+
+    
+
+    
+
+
+   
+
+    // function createPokemonLists(data) {
+
+    //     let optionA = document.createElement('option')
+    //     let optionB = document.createElement('option')
+        
+    //         optionA.innerHTML = data.name
+    //         optionB.innerHTML = data.name
+    //         dropDownA.append(optionA)
+    //         dropDownB.append(optionB)
+            
+        
+    // }
    
 
     
-    listA.addEventListener('change', function (event) {
-        pokemonObjects.filter(function (pokemon) {
-            if (pokemon.name == event.target.value) {
-                pokemonAImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${pokemon.id}.png`
-
-                console.log(pokemon)
-            }
+   dropDown.addEventListener('change', function (event) {
+        const pokemon = pokemonObjects.find(pokemon => pokemon.name === event.target.value) 
+            // if (pokemon.name == event.target.value) {
+                let pokemonImage = document.querySelector("#pokemon_img")
+                pokemonImage.src = pokemon.sprites.front_default
+            //     hpa.innerHTML = `HP: ${pokemon['stats'][0]['base_stat']}`
+                
+            // }
             
-        })
-    })
-
-   
-
     
-   
-
-    listB.addEventListener('change', function (event) {
-        pokemonObjects.filter(function (pokemon) {
-            if (pokemon.name == event.target.value) {
-                pokemonBImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${pokemon.id}.png`
-
-                console.log(pokemon)
-            }
-            
-        })
     })
 })
