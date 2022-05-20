@@ -26,3 +26,9 @@ h1 {
     text-align: center;
     float: center
 }
+
+#stats-card {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
