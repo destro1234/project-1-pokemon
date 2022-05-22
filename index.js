@@ -1,17 +1,12 @@
 
 document.addEventListener('DOMContentLoaded', function (params) {
     
-
-
-let dropDownA = document.querySelector("#pokemon-a-dropdown")
-let dropDownB = document.querySelector("#pokemon-b-dropdown")
 let pokemonCard = document.querySelector("#pokemon-card")
 let statsCard = document.createElement("ul")
-
-let pokemonBImage = document.querySelector("#pokemon-b-img")
-let hpa = document.querySelector('#HP_a')
 const pokemonObjects = []
 const dropDown = document.createElement('select')
+const addButton = document.createElement('button')
+const pokemonTeam = []
 
 
 
@@ -32,13 +27,7 @@ const dropDown = document.createElement('select')
                 pokemonObjects.push(data)
             })
         }
-
-        
     }
-
-
-    
-
     
     createPokemonDropdown()
 
@@ -54,7 +43,8 @@ const dropDown = document.createElement('select')
         <label for="pokemon-a">Choose your pokemon:</label>
         <br>
         <br>`
-        const addButton = document.createElement('button')
+        
+        addButton.id = "addButton"
         addButton.innerHTML = "Add to Team!"
         div.append(dropDown)
 
@@ -83,16 +73,11 @@ const dropDown = document.createElement('select')
         speed.innerHTML = "Speed: 45"
 
         statsCard.id = 'stats-card'
-        statsCard.append(hp,attack, defense, special_attack, special_defense, speed)
+        statsCard.append(hp, attack, defense, special_attack, special_defense, speed)
         div.append(statsCard)
 
         div.append(linebreak)
         div.append(addButton)
-        
-        
-            
-        
-        
         container.append(div)
     
 
@@ -101,30 +86,11 @@ const dropDown = document.createElement('select')
     function createOptions(data) {
         const option = document.createElement('option')
         option.innerHTML = data.name
+        dropDown.id = 'pokemon-menu'
         dropDown.append(option)
-        console.log(dropDown)
+        // console.log(dropDown)
     }
-
     
-
-    
-
-
-   
-
-    // function createPokemonLists(data) {
-
-    //     let optionA = document.createElement('option')
-    //     let optionB = document.createElement('option')
-        
-    //         optionA.innerHTML = data.name
-    //         optionB.innerHTML = data.name
-    //         dropDownA.append(optionA)
-    //         dropDownB.append(optionB)
-            
-        
-    // }
-
     function renderStats(pokemon) {
         pokemonCard = document.querySelector("#pokemon-card")
         let hp = pokemonCard.querySelector("#healthpoints")
@@ -151,23 +117,22 @@ const dropDown = document.createElement('select')
         let pokemonImage = document.querySelector("#pokemon_img")
         pokemonImage.src = pokemon.sprites.front_default
     }
+
+
    
 
     
    dropDown.addEventListener('change', function (event) {
        
         const pokemon = pokemonObjects.find(pokemon => pokemon.name === event.target.value) 
-            // if (pokemon.name == event.target.value) {
-                
-                console.log(pokemon)
                 renderStats(pokemon)
-                // pokemonCard.querySelector('#healthpoints').remove()
-                
-                
-            //     hpa.innerHTML = `HP: ${pokemon['stats'][0]['base_stat']}`
-                
-            // }
-            
+            })
+
     
+    addButton.addEventListener('click', function () {
+        const option = dropDown.options[dropDown.selectedIndex].value
+        const pokemon = pokemonObjects.find(pokemon => pokemon.name === option)
+        pokemonTeam.push(pokemon)
+        console.log(pokemonTeam)
     })
 })
