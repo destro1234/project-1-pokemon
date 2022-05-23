@@ -87,7 +87,7 @@ const team = document.querySelector('#pokemon-team')
 
     function createOptions(data) {
         const option = document.createElement('option')
-        option.innerHTML = data.name
+        option.innerHTML = data.name[0].toUpperCase() + data.name.slice(1)
         dropDown.id = 'pokemon-menu'
         dropDown.append(option)
         // console.log(dropDown)
@@ -123,16 +123,17 @@ const team = document.querySelector('#pokemon-team')
     function renderPokemonTeam() {
         let divCounter = 0
         pokemonTeam.forEach(function (pokemon) {
-            
-            const div = document.createElement('div')
             divCounter += 1
-            div.id = `${pokemonTeam.indexOf(pokemon)+1}`
 
+            const div = document.createElement('div')
+            div.id = "pokemon"
             div.innerHTML = 
             `
             <h4> Pokemon ${divCounter} </h4>
             <h4> ${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} </h4>
             <img id= "pokemon_team_img" src=${pokemon.sprites.front_default} alt="image goes here">
+            <br>
+            <button>Remove!</button>
             `
             team.append(div)
            console.log(div.id) 
@@ -145,7 +146,7 @@ const team = document.querySelector('#pokemon-team')
     
    dropDown.addEventListener('change', function (event) {
        
-        const pokemon = pokemonObjects.find(pokemon => pokemon.name === event.target.value) 
+        const pokemon = pokemonObjects.find(pokemon => pokemon.name === event.target.value.toLowerCase()) 
                 renderStats(pokemon)
             })
 
@@ -154,7 +155,7 @@ const team = document.querySelector('#pokemon-team')
         if (pokemonTeam.length < 6) {
             team.innerHTML = " "
         const option = dropDown.options[dropDown.selectedIndex].value
-        const pokemon = pokemonObjects.find(pokemon => pokemon.name === option)
+        const pokemon = pokemonObjects.find(pokemon => pokemon.name === option.toLowerCase())
         pokemonTeam.push(pokemon)
         renderPokemonTeam(pokemon)
         }

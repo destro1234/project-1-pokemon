@@ -11,9 +11,9 @@ h1 {
 
 }
 
-/* #pokemon{
+#pokemon{
     display: inline-block;
-} */
+}
 
 .pokemon-container {
     display: inline-block;
