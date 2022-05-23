@@ -7,6 +7,7 @@ const pokemonObjects = []
 const dropDown = document.createElement('select')
 const addButton = document.createElement('button')
 const pokemonTeam = []
+const team = document.querySelector('#pokemon-team')
 
 
 
@@ -30,6 +31,7 @@ const pokemonTeam = []
     }
     
     createPokemonDropdown()
+    
 
     function createPokemonDropdown() {
         const container = document.querySelector("#container-wrapper");
@@ -118,6 +120,25 @@ const pokemonTeam = []
         pokemonImage.src = pokemon.sprites.front_default
     }
 
+    function renderPokemonTeam() {
+        let divCounter = 0
+        pokemonTeam.forEach(function (pokemon) {
+            
+            const div = document.createElement('div')
+            divCounter += 1
+            div.id = `${pokemonTeam.indexOf(pokemon)+1}`
+
+            div.innerHTML = 
+            `
+            <h4> Pokemon ${divCounter} </h4>
+            <h4> ${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} </h4>
+            <img id= "pokemon_team_img" src=${pokemon.sprites.front_default} alt="image goes here">
+            `
+            team.append(div)
+           console.log(div.id) 
+        })
+    }
+
 
    
 
@@ -130,9 +151,14 @@ const pokemonTeam = []
 
     
     addButton.addEventListener('click', function () {
+        if (pokemonTeam.length < 6) {
+            team.innerHTML = " "
         const option = dropDown.options[dropDown.selectedIndex].value
         const pokemon = pokemonObjects.find(pokemon => pokemon.name === option)
         pokemonTeam.push(pokemon)
-        console.log(pokemonTeam)
+        renderPokemonTeam(pokemon)
+        }
+        
+        // console.log(pokemonTeam)
     })
 })
