@@ -6,13 +6,15 @@ h1 {
 
 #pokemon-team {
     margin: auto;
-    width: 400px;
+    /* width: 400px; */
     text-align: center
 
 }
 
 #pokemon{
     display: inline-block;
+    margin: auto;
+    padding: 10px;
 }
 
 .pokemon-container {
