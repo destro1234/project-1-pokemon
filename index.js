@@ -153,9 +153,9 @@ const team = document.querySelector('#pokemon-team')
     //     })
     // }
 
-    function renderPokemonTeam() {
+    function renderPokemonTeam(pokemon) {
         let divCounter = 0
-        pokemonTeam.forEach(function (pokemon) {
+        // pokemonTeam.forEach(function (pokemon) {
             divCounter += 1
 
             const div = document.createElement('div')
@@ -164,6 +164,7 @@ const team = document.querySelector('#pokemon-team')
             `
             <h4> Pokemon ${divCounter} </h4>
             <h4 id="name"> ${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} </h4>
+            <h4 id="nickname"></h4>
             <img id= "pokemon_team_img" src=${pokemon.sprites.front_default} alt="image goes here">
 
             <figcaption>HP: ${pokemon.stats[0]['base_stat']}/ Attack: ${pokemon.stats[1]['base_stat']}</figcaption>
@@ -195,16 +196,16 @@ const team = document.querySelector('#pokemon-team')
             const form = div.querySelector("#pokemon-nickname")
             form.addEventListener('submit', function (event) {
                 event.preventDefault()
-                div.querySelector('#name').innerHTML = event.target.nickname.value
+                const nicknameDiv = div.querySelector("#nickname")
+                nicknameDiv.innerHTML = event.target.nickname.value
+
                 
-                console.log()
+    
             })
 
-            
-            console.log()
         //    pokemon.moves.splice(0, 4).forEach(move => console.log(move.move.name)) 
-    }
-        )}
+    // })
+        }
 
 
    
@@ -219,11 +220,11 @@ const team = document.querySelector('#pokemon-team')
     
     addButton.addEventListener('click', function () {
         if (pokemonTeam.length < 6) {
-            team.innerHTML = " "
+            // team.innerHTML = " "
         const option = dropDown.options[dropDown.selectedIndex].value
         const pokemon = pokemonObjects.find(pokemon => pokemon.name === option.toLowerCase())
         pokemonTeam.push(pokemon)
-        renderPokemonTeam()
+        renderPokemonTeam(pokemon)
         }
         
         // console.log(pokemonTeam)
