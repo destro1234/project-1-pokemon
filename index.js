@@ -163,7 +163,7 @@ const team = document.querySelector('#pokemon-team')
             div.innerHTML = 
             `
             <h4> Pokemon ${divCounter} </h4>
-            <h4> ${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} </h4>
+            <h4 id="name"> ${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} </h4>
             <img id= "pokemon_team_img" src=${pokemon.sprites.front_default} alt="image goes here">
 
             <figcaption>HP: ${pokemon.stats[0]['base_stat']}/ Attack: ${pokemon.stats[1]['base_stat']}</figcaption>
@@ -177,11 +177,12 @@ const team = document.querySelector('#pokemon-team')
             </ol>
 
 
-            <form>
+            <form id="pokemon-nickname">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Give your ${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} a nickname!</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1" class="form-label">Give your ${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} nickname!</label>
+                    <input type="text" id="nickname" class="form-control">
                 
+            
             <button type="submit" class="btn btn-primary">Submit</button>
             </form>
             <br>
@@ -189,10 +190,18 @@ const team = document.querySelector('#pokemon-team')
 
             <button>Remove!</button>
             `
-
-            div.addEventListener
             team.append(div)
-            console.log(pokemon.moves[0])
+
+            const form = div.querySelector("#pokemon-nickname")
+            form.addEventListener('submit', function (event) {
+                event.preventDefault()
+                div.querySelector('#name').innerHTML = event.target.nickname.value
+                
+                console.log()
+            })
+
+            
+            console.log()
         //    pokemon.moves.splice(0, 4).forEach(move => console.log(move.move.name)) 
     }
         )}
