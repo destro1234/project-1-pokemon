@@ -1,10 +1,12 @@
 
-document.addEventListener('DOMContentLoaded', function (params) {
+document.addEventListener('DOMContentLoaded', function () {
     
+const dropDown = document.createElement('select')   
+let pokemonObjects = []
 let pokemonCard = document.querySelector("#pokemon-card")
 let statsCard = document.createElement("ul")
-const pokemonObjects = []
-const dropDown = document.createElement('select')
+
+
 const addButton = document.createElement('button')
 const pokemonTeam = []
 const team = document.querySelector('#pokemon-team')
@@ -19,67 +21,74 @@ const team = document.querySelector('#pokemon-team')
     })
 
     function getAllPokemon(data) {
-        let pokemons = data['results']
+        const pokemons = data['results']
         for (const pokemon of pokemons) {
             fetch(pokemon.url)
             .then(res => res.json())
             .then(function (data) {
                 createOptions(data)
                 pokemonObjects.push(data)
+                renderStats(pokemonObjects[0])
             })
         }
+        
+    }
+
+     function createOptions(data) {
+        const option = document.createElement('option')
+        option.innerHTML = data.name[0].toUpperCase() + data.name.slice(1)
+        dropDown.append(option)
     }
     
     createPokemonDropdown()
     
 
     function createPokemonDropdown() {
-        const container = document.querySelector("#container-wrapper");
+        const container = document.querySelector("#dropDown_List");
         const div = document.createElement('div');
         div.id = "pokemon-card"
-        let linebreak = document.createElement('br')
-        div.innerHTML = 
-        `<h4>Choose a Pokemon:</h4>
-        <img id= "pokemon_img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="image goes here">
-        <br>
-        <br>`
+        
+        let h4 = document.createElement('h4')
+        h4.innerHTML = "Choose a Pokemon:"
+        
+        div.append(h4, dropDown)
+
+       
+        const linebreak = document.createElement('br')
+        div.append(linebreak)
+        
+        console.log(pokemonObjects)
+        
+        let img = document.createElement('img')
+        img.id = "pokemon_img"
         
         addButton.id = "addButton"
         addButton.innerHTML = "Add to Team!"
-        div.append(linebreak)
-        div.append(dropDown)
+        
 
         let pokemonName = document.createElement('h4')
         pokemonName.id = "pokemonName"
-        pokemonName.innerHTML = "Bulbasaur"
         
-
         let hp = document.createElement('li')
         hp.id = "healthpoints"
-        hp.innerHTML = `HP: 45`
 
         let attack = document.createElement('li')
         attack.id = 'attack'
-        attack.innerHTML = "Attack: 49"
 
         let defense = document.createElement('li')
         defense.id = 'defense'
-        defense.innerHTML = "Defense: 49"
 
         let special_attack = document.createElement('li')
         special_attack.id = 'special_attack'
-        special_attack.innerHTML = "Special Attack: 65"
 
         let special_defense = document.createElement('li')
         special_defense.id = 'special_defense'
-        special_defense.innerHTML = "Special Defense: 65"
 
         let speed = document.createElement('li')
         speed.id = 'speed'
-        speed.innerHTML = "Speed: 45"
 
         statsCard.id = 'stats-card'
-        statsCard.append(pokemonName, hp, attack, defense, special_attack, special_defense, speed)
+        statsCard.append(img, pokemonName, hp, attack, defense, special_attack, special_defense, speed)
         div.append(statsCard)
 
         div.append(linebreak)
@@ -89,13 +98,7 @@ const team = document.querySelector('#pokemon-team')
         
     }
 
-    function createOptions(data) {
-        const option = document.createElement('option')
-        option.innerHTML = data.name[0].toUpperCase() + data.name.slice(1)
-        dropDown.id = 'pokemon-menu'
-        dropDown.append(option)
-        // console.log(dropDown)
-    }
+   
     
     function renderStats(pokemon) {
         pokemonCard = document.querySelector("#pokemon-card")
@@ -123,46 +126,21 @@ const team = document.querySelector('#pokemon-team')
 
 
         console.log(hp)
-        // pokemonCard.append(h4)
+        
         let pokemonImage = document.querySelector("#pokemon_img")
         pokemonImage.src = pokemon.sprites.front_default
         console.log(pokemon.sprites)
     }
 
-    // function renderPokemonTeam() {
-    //     let divCounter = 0
-    //     pokemonTeam.forEach(function (pokemon) {
-    //         divCounter += 1
+    
 
-    //         const div = document.createElement('div')
-    //         div.id = "pokemon"
-    //         div.innerHTML = 
-    //         `
-    //         <h4> Pokemon ${divCounter} </h4>
-    //         <h4> ${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} </h4>
-    //         <img id= "pokemon_team_img" src=${pokemon.sprites.front_default} alt="image goes here">
-    //         <figcaption>HP: ${pokemon.stats[0]['base_stat']}/ Attack: ${pokemon.stats[1]['base_stat']}</figcaption>
-    //         <br>
-
-    //         <button>Remove!</button>
-    //         `
-
-    //         div.addEventListener
-    //         team.append(div)
-    //        console.log(div.id) 
-    //     })
-    // }
-
-    function renderPokemonTeam(pokemon) {
-        let divCounter = 0
-        // pokemonTeam.forEach(function (pokemon) {
-            divCounter += 1
+    function renderPokemon(pokemon) {
 
             const div = document.createElement('div')
             div.id = "pokemon"
             div.innerHTML = 
             `
-            <h4> Pokemon ${divCounter} </h4>
+            
             <h4 id="name"> ${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} </h4>
             <h4 id="nickname"></h4>
             <img id= "pokemon_team_img" src=${pokemon.sprites.front_default} alt="image goes here">
@@ -189,7 +167,7 @@ const team = document.querySelector('#pokemon-team')
             <br>
             
 
-            <button>Remove!</button>
+            <button id="remove" >Remove!</button>
             `
             team.append(div)
 
@@ -202,9 +180,16 @@ const team = document.querySelector('#pokemon-team')
                 
     
             })
+            
+            div.querySelector('#remove').addEventListener('click', function (event) {
 
-        //    pokemon.moves.splice(0, 4).forEach(move => console.log(move.move.name)) 
-    // })
+                event.target.parentNode.parentNode.parentNode.remove()
+                
+                pokemonTeam.pop()
+
+                
+            })
+            
         }
 
 
@@ -220,13 +205,10 @@ const team = document.querySelector('#pokemon-team')
     
     addButton.addEventListener('click', function () {
         if (pokemonTeam.length < 6) {
-            // team.innerHTML = " "
         const option = dropDown.options[dropDown.selectedIndex].value
         const pokemon = pokemonObjects.find(pokemon => pokemon.name === option.toLowerCase())
         pokemonTeam.push(pokemon)
-        renderPokemonTeam(pokemon)
+        renderPokemon(pokemon)
         }
-        
-        // console.log(pokemonTeam)
     })
 })
