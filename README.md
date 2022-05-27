@@ -1,6 +1,6 @@
 # Foobar
 
-MakePKTeam is a SPA that uses the public API, Pokeapi, and lets you compare pokemon stats and add them to your pokemon team.
+MakePKTeam is a Single Page Application that uses the public API, Pokeapi, and lets you compare pokemon stats and add them to your pokemon team.
 
 ## Installation
 
