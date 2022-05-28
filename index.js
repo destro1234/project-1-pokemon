@@ -61,6 +61,7 @@ const team = document.querySelector('#pokemon-team')
         
         let img = document.createElement('img')
         img.id = "pokemon_img"
+
         
         addButton.id = "addButton"
         addButton.innerHTML = "Add to Team!"
@@ -175,7 +176,7 @@ const team = document.querySelector('#pokemon-team')
             form.addEventListener('submit', function (event) {
                 event.preventDefault()
                 const nicknameDiv = div.querySelector("#nickname")
-                nicknameDiv.innerHTML = event.target.nickname.value
+                nicknameDiv.innerHTML = `"${event.target.nickname.value}"`
 
                 
     
